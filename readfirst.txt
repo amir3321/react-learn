@@ -4,3 +4,23 @@ tpescript
 eslint
 install
 npm i
+
+
+--git
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main // جداسازی 
+git remote add origin https://github.com/amir3321/react-learn.git
+git push -u origin main
+
+--extention
+    npm i -d prettier
+    npx prettier . --write
+    --sort import
+        --ts.config.app.json ->compilerOptions
+            "baseUrl":".",
+            "paths":{"@/*":["./src/*"]}
+        --vite.config.ts ---import path from "node:path"
+            ,resolve:{alias:{"@":path.resolve(__dirname,"./src"),},}
+        npm i -d @type/node
