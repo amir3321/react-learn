@@ -1,0 +1,6 @@
+npm create vite@latest react-learn
+react
+tpescript
+eslint
+install
+npm i
