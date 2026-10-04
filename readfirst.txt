@@ -16,7 +16,7 @@ git push -u origin main
 
 --extention
     npm i -d prettier
-    npx prettier . --write
+        npx prettier . --write
     --sort import
         --ts.config.app.json ->compilerOptions
             "baseUrl":".",
@@ -24,3 +24,5 @@ git push -u origin main
         --vite.config.ts ---import path from "node:path"
             ,resolve:{alias:{"@":path.resolve(__dirname,"./src"),},}
         npm i -d @type/node
+
+    npm i eslint      
