@@ -3,18 +3,31 @@ import "./App.css";
 //import type MouseEvent from "react";
 
 
-type User={
-  username:string;
-  password:string;
-}
+// type User={
+//   username:string;
+//   password:string;
+// }
 
 
  export default function App() : ReactNode {
-const [count,setCount]=useState(0);
-const [user,setUser]=useState<Readonly<User>>({
-  username:"Amir",
-  password:"aaa"
-});
+
+const [numbers,setNumbers]=useState<number[]>([1,2,3,4,5,6,7,8,9,10]);
+
+const handleClick=():void=>{
+  // setNumbers((old)=>{
+  //   const newNumbers=[...old];
+  //   newNumbers.push(11);
+  //   return newNumbers;
+  // });
+  setNumbers(old=>[...old,12])
+}
+
+
+// const [count,setCount]=useState(0);
+// const [user,setUser]=useState<Readonly<User>>({
+//   username:"Amir",
+//   password:"aaa"
+// });
 // const handleClick=(e:MouseEvent<HTMLButtonElement>)=>{
 //   setCount(count+1);
  
@@ -30,10 +43,10 @@ const [user,setUser]=useState<Readonly<User>>({
  
 // }
 
-const handleClick=():void=>{
-  setUser({...user,password:"bbb"})
+// const handleClick=():void=>{
+//   setUser({...user,password:"bbb"})
  
-}
+// }
 
 // const handelClick=(x:number):void=>{
 // console.log(`hello ${x}`)
@@ -41,7 +54,7 @@ const handleClick=():void=>{
 
   return(
    <>
-   <pre>{JSON.stringify(user,null,2)}</pre>
+   <pre>{JSON.stringify(numbers,null,2)}</pre>
       <button className="btnSubmit" onClick={handleClick}>Click Me</button>
  
 
