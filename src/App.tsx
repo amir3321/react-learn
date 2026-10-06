@@ -1,29 +1,16 @@
-import {type  ReactNode,useState } from "react";
+import {type  ReactNode } from "react";
 import "./App.css";
+import { Counter } from "./component/Counter/Counter";
 
  export default function App() : ReactNode {
 
   return(
    <div className="app">
-   <Counter/>
-   <Counter/>
+   <Counter title="counter 1" baseCount={10}/>
+   <Counter title="counter 2" baseCount={20}/>
 
   </div>
   )
 }
 
-export function Counter(): ReactNode{
-  const [count,setCount]=useState(0)
-const clickHandler=():void=>{
-  setCount(old=>old+1);
-}
-  return(
-    <div className="counter">
-      <div className="title">Title</div>
-      <div className="count">{count}</div>
-      <button className="increment" onClick={clickHandler}>Increment</button>
-    </div>
-  )
-
-}
 
