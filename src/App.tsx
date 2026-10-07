@@ -13,8 +13,8 @@ export default function App(): ReactNode {
   return (
     <div className="app">
       <ThemeSwitch theme={theme} toggleTheme={toggleTheme} />
-      <Counter theme={theme} title="counter 1" baseCount={10} />
-      <Counter theme={theme} title="counter 2" baseCount={20} />
+      <Counter primary theme={theme} title="counter 1" baseCount={10}><p>this is fine </p></Counter> {/*how to use children for props*/}
+      <Counter theme={theme} title="counter 2" baseCount={20} children={<p>this is true 555</p>}/>
     </div>
   );
 }
