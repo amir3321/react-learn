@@ -24,4 +24,9 @@
     .increment{
         text-transform: uppercase;
     }
+    &.dark{
+        color-scheme: dark;
+        background-color: canvas;
+        color:canvasText;
+    }
 }

@@ -3,13 +3,14 @@ import type { Theme } from "@/App";
 
 type props={
     theme:Theme;
-    setTheme: React.Dispatch<React.SetStateAction<Theme>>;//(value:Theme)=>void;
+    //setTheme: React.Dispatch<React.SetStateAction<Theme>>;//(value:Theme)=>void;
+    toggleTheme:()=>void;
     }
-export default function ThemeSwitch({theme,setTheme}:props): ReactNode {
+export default function ThemeSwitch({theme,toggleTheme}:props): ReactNode {
  
 
   const handleButtonClick = (): void => {
-    setTheme((old) => (old == "light" ? "dark" : "light"));
+    toggleTheme();
   };
 
   return (

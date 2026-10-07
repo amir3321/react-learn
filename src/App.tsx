@@ -7,11 +7,14 @@ export type Theme = "dark" | "light";
 
 export default function App(): ReactNode {
    const [theme, setTheme] = useState<Theme>("light");
+   const toggleTheme=():void=>{
+      setTheme((old) => (old == "light" ? "dark" : "light"));
+   }
   return (
     <div className="app">
-      <ThemeSwitch setTheme={setTheme} />
-      <Counter title="counter 1" baseCount={10} />
-      <Counter title="counter 2" baseCount={20} />
+      <ThemeSwitch theme={theme} toggleTheme={toggleTheme} />
+      <Counter theme={theme} title="counter 1" baseCount={10} />
+      <Counter theme={theme} title="counter 2" baseCount={20} />
     </div>
   );
 }
