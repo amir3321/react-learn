@@ -25,4 +25,5 @@ git push -u origin main
             ,resolve:{alias:{"@":path.resolve(__dirname,"./src"),},}
         npm i -d @type/node
 
-    npm i eslint      
+    npm i eslint   
+    npm i clsx    

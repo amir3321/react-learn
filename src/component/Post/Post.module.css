@@ -1,9 +1,0 @@
-.post{
-    background-color: var(--color-surface-2);
-    box-shadow: var(--shadow-2);
-    inline-size: 20rem;
-    .title{
-        font-size: var(--fz-500);
-        font-weight: 700;
-    }
-}
