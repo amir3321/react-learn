@@ -1,17 +1,27 @@
 import { BoardCard } from '@/components/BoardCard/BoardCard';
 import { Button } from '@/components/Button/Button';
+import { Footer } from '@/components/Footer/Footer';
+import { Header } from '@/components/Header/Header';
 import styles from '@/pages/HomePage/HomePage.module.css';
 import type { ReactNode } from 'react';
+import { useNavigate } from 'react-router';
 
 export const HomePage = (): ReactNode => {
+  const navigate=useNavigate();
+const handleCreateButtonClick= ():void=>{
+  navigate("/board");
+
+}
+
+
   return (
     <>
       <div className={styles['home-page']}>
-          <header>Header</header>
+        <Header/>
       <main>
         <div className={styles.header}>
           <h1 className={styles.title}>Boards</h1>
-          <Button variant="outlined" color="default">Create</Button>
+          <Button variant="outlined" color="default" onClick={handleCreateButtonClick}>Create</Button>
         </div>
         <ul className={styles.boards}>
           <li>
@@ -52,7 +62,7 @@ export const HomePage = (): ReactNode => {
           </li>
         </ul>
       </main>
-      <footer>Footer</footer>
+      <Footer/>
       </div>
     </>
   );
