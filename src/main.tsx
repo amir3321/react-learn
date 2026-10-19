@@ -6,5 +6,10 @@ import "@/styles/tpography.css";
 import "@/styles/shapes.css";
 
 import App from "./App.tsx";
+import { BrowserRouter } from "react-router";
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  );
