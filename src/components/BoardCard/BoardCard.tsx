@@ -14,7 +14,7 @@ type props={
 
 }
 
-export const BoardCard = ({title,description,color}:props): ReactNode => {
+export const BoardCard = ({id,title,description,color}:props): ReactNode => {
   return (
     <>
       <div className={clsx( styles['board-card'],color)}>
@@ -22,7 +22,7 @@ export const BoardCard = ({title,description,color}:props): ReactNode => {
               <div className={styles.content}>
                 <div className={styles.header}>
                   <div className={styles.title}>{title}</div>
-                  <Link to="/board">View</Link>
+                  <Link to={`/board/${id}`}>View</Link>
                 </div>
                 <p className={styles.description}>
                   {description}

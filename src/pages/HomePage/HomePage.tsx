@@ -1,12 +1,14 @@
 import { BoardCard } from '@/components/BoardCard/BoardCard';
 import { Button } from '@/components/Button/Button';
-import { Footer } from '@/components/Footer/Footer';
-import { Header } from '@/components/Header/Header';
+
 import styles from '@/pages/HomePage/HomePage.module.css';
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router';
 
 export const HomePage = (): ReactNode => {
+  
+  // throw new Error("error is very bad !!!");
+
   const navigate=useNavigate();
 const handleCreateButtonClick= ():void=>{
   navigate("/board");
@@ -17,8 +19,7 @@ const handleCreateButtonClick= ():void=>{
   return (
     <>
       <div className={styles['home-page']}>
-        <Header/>
-      <main>
+       
         <div className={styles.header}>
           <h1 className={styles.title}>Boards</h1>
           <Button variant="outlined" color="default" onClick={handleCreateButtonClick}>Create</Button>
@@ -61,8 +62,7 @@ const handleCreateButtonClick= ():void=>{
              />
           </li>
         </ul>
-      </main>
-      <Footer/>
+     
       </div>
     </>
   );

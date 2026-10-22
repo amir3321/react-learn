@@ -26,4 +26,6 @@ git push -u origin main
         npm i -d @type/node
 
     npm i eslint   
-    npm i clsx    
+    npm i clsx   
+    npm i react-router
+    npm i react-error-boundary  
