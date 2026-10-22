@@ -1,13 +1,13 @@
 import type { ListType } from "@/types/list";
 import styles from "./List.module.css";
-import type { ReactNode } from "react";
+import { memo, type ReactNode } from "react";
 import MingcuteMore1Line from "@/icons/MingcuteMore1Line";
 import IconButton from "../IconButton/IconButton";
 import ListItem from "../ListItem/ListItem";
 type Props = {
   list: ListType;
 };
-export const List = ({ list }: Props): ReactNode => {
+ const List = memo( function List ({ list }: Props): ReactNode {
   return (
     
       <div className={styles["list"]}>
@@ -27,4 +27,5 @@ export const List = ({ list }: Props): ReactNode => {
       </div>
     
   );
-};
+});
+export default List;
