@@ -6,6 +6,7 @@ import MingcuteAddLine from '@/icons/MingcuteAddLine';
 
 import  List  from '../List/List';
 import type { ListType } from '@/types/list';
+import { listsData } from '@/data/lists-data';
 //import type { ListItemType } from '@/types/list-item';
 
 // function cb (a:ListItemType,b:ListItemType):number{
@@ -13,49 +14,28 @@ import type { ListType } from '@/types/list';
   
 // }
 export default function Board (): ReactNode {
-  // const [list,setlist]=useState<ListType[]>({
-
-  // })
- const [todoList,setTodoList] =useState<ListType>({
-  id:'1',title:"To Do",items:[
-    {id:'1',title:'Setup Backend Project'},
-     {id:'2',title:'Do Setup Backend Project 2'},
-      {id:'3',title:'Kh Setup Backend Project 3'}
-  ]
- });
-  const [doingList,setDoingList] =useState<ListType>({
-  id:'1',title:"Doing",items:[
-    {id:'1',title:'Setup Backend Project'},
-     {id:'2',title:'Doing Setup Backend Project 2'}
-    
-  ]
- });
-  const [doneList] =useState<ListType>({
-  id:'1',title:"Done",items:[
-    {id:'1',title:'Setup Backend Project'},
-     
-  ]
- });
+  const [lists,setlists]=useState<ListType[]>(listsData)
+ 
 
 
- const handleEditButtonClick=():void=>{
-  setTodoList((old)=>{
-    const clone=[...old.items];
-    clone.splice(1,1);
-    return {...old,items:clone};
+//  const handleEditButtonClick=():void=>{
+//   setTodoList((old)=>{
+//     const clone=[...old.items];
+//     clone.splice(1,1);
+//     return {...old,items:clone};
 
-  })
+//   })
 
- }
+//  }
 
- const handleAddButtonClick=():void=>{
-  setDoingList((old)=>{
-    const clone=[...old.items];
-    clone.splice(1,1);
-    return {...old,items:clone}
+//  const handleAddButtonClick=():void=>{
+//   setDoingList((old)=>{
+//     const clone=[...old.items];
+//     clone.splice(1,1);
+//     return {...old,items:clone}
 
-  })
- }
+//   })
+//  }
 //  const sortedToDoList=useMemo(()=>{ 
 //       return {...todoList,items:[...todoList.items].sort(cb)}
 //     },[todoList])
@@ -69,9 +49,9 @@ export default function Board (): ReactNode {
 
 const handleListItemClick=useCallback((id:string):void=>{
   console.log('clicked item...');
-  setTodoList((old)=>{
-    const clone =[...old.items];
-    return {...old,items:clone.filter(item=>item.id!==id)};
+  setlists((old)=>{
+    const clone = {...old[0],items:[...old[0].items].filter(item=>item.id!==id)};
+    return [clone,old[1],old[2]];
   });
 
 },[]);
@@ -83,24 +63,24 @@ const handleListItemClick=useCallback((id:string):void=>{
         <div className={styles.title}>🎫BoardTitle</div>
         <div className={styles.actions}>
      
-          <IconButton onClick={handleEditButtonClick}>
+          <IconButton >
             <MingcuteEdit2Line/>
           </IconButton>
-          <IconButton onClick={handleAddButtonClick}>
+          <IconButton >
             <MingcuteAddLine/>
           </IconButton>
         </div>
         </div>
            <ul className={styles.lists}>
             <li>
-              <List list={todoList} onClick={handleListItemClick}  />
+              <List list={lists[0]} onClick={handleListItemClick}  />
             </li>
               <li>
-              <List list={doingList}/>
+              <List list={lists[1]}/>
             </li>
             
               <li>
-              <List list={doneList}/>
+              <List list={lists[2]}/>
             </li>
             
             
