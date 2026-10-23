@@ -6,8 +6,9 @@ import IconButton from "../IconButton/IconButton";
 import ListItem from "../ListItem/ListItem";
 type Props = {
   list: ListType;
+  onClick?:(id:string)=>void;
 };
- const List = memo( function List ({ list }: Props): ReactNode {
+ const List = memo( function List ({ list ,onClick}: Props): ReactNode {
   return (
     
       <div className={styles["list"]}>
@@ -20,7 +21,7 @@ type Props = {
         <ul className={styles.items}>
           {list.items.map((item) => (
             <li key={item.id}>
-              <ListItem item={item} />
+              <ListItem item={item} onClick={onClick} />
             </li>
           ))}
         </ul>

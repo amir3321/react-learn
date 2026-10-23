@@ -1,18 +1,21 @@
 import styles from './Board.module.css';
-import { useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useMemo, useState, type ReactNode } from 'react';
 import IconButton  from '../IconButton/IconButton';
 import MingcuteEdit2Line from '@/icons/MingcuteEdit2Line';
 import MingcuteAddLine from '@/icons/MingcuteAddLine';
 
 import  List  from '../List/List';
 import type { ListType } from '@/types/list';
-import type { ListItemType } from '@/types/list-item';
+//import type { ListItemType } from '@/types/list-item';
 
-function cb (a:ListItemType,b:ListItemType):number{
-  return a.title.localeCompare(b.title);
+// function cb (a:ListItemType,b:ListItemType):number{
+//   return a.title.localeCompare(b.title);
   
-}
+// }
 export default function Board (): ReactNode {
+  // const [list,setlist]=useState<ListType[]>({
+
+  // })
  const [todoList,setTodoList] =useState<ListType>({
   id:'1',title:"To Do",items:[
     {id:'1',title:'Setup Backend Project'},
@@ -53,18 +56,25 @@ export default function Board (): ReactNode {
 
   })
  }
- const sortedToDoList=useMemo(()=>{ 
-      return {...todoList,items:[...todoList.items].sort(cb)}
-    },[todoList])
-    const sortedDoingList=useMemo(()=>{ 
-      return {...doingList,items:[...doingList.items].sort(cb)}
-    },[doingList])
+//  const sortedToDoList=useMemo(()=>{ 
+//       return {...todoList,items:[...todoList.items].sort(cb)}
+//     },[todoList])
+//     const sortedDoingList=useMemo(()=>{ 
+//       return {...doingList,items:[...doingList.items].sort(cb)}
+//     },[doingList])
 
-    const sortedDoneList=useMemo(()=>{ 
-      return {...doneList,items:[...doneList.items].sort(cb)}
-    },[doneList])
+//     const sortedDoneList=useMemo(()=>{ 
+//       return {...doneList,items:[...doneList.items].sort(cb)}
+//     },[doneList])
 
+const handleListItemClick=useCallback((id:string):void=>{
+  console.log('clicked item...');
+  setTodoList((old)=>{
+    const clone =[...old.items];
+    return {...old,items:clone.filter(item=>item.id!==id)};
+  });
 
+},[]);
 
   return (
     <>
@@ -83,14 +93,14 @@ export default function Board (): ReactNode {
         </div>
            <ul className={styles.lists}>
             <li>
-              <List list={sortedToDoList}/>
+              <List list={todoList} onClick={handleListItemClick}  />
             </li>
               <li>
-              <List list={sortedDoingList}/>
+              <List list={doingList}/>
             </li>
             
               <li>
-              <List list={sortedDoneList}/>
+              <List list={doneList}/>
             </li>
             
             
