@@ -1,4 +1,4 @@
-import { Board } from '@/components/Board/Board';
+import  Board  from '@/components/Board/Board';
 import styles from '@/pages/BoardPage/BoardPage.module.css';
 import type { ReactNode } from 'react';
 // import { useParams } from 'react-router';

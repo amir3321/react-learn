@@ -1,24 +1,29 @@
 import styles from './Board.module.css';
-import { useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import IconButton  from '../IconButton/IconButton';
 import MingcuteEdit2Line from '@/icons/MingcuteEdit2Line';
 import MingcuteAddLine from '@/icons/MingcuteAddLine';
 
-import { List } from '../List/List';
+import  List  from '../List/List';
 import type { ListType } from '@/types/list';
+import type { ListItemType } from '@/types/list-item';
 
-export const Board = (): ReactNode => {
+function cb (a:ListItemType,b:ListItemType):number{
+  return a.title.localeCompare(b.title);
+  
+}
+export default function Board (): ReactNode {
  const [todoList,setTodoList] =useState<ListType>({
   id:'1',title:"To Do",items:[
     {id:'1',title:'Setup Backend Project'},
-     {id:'2',title:'Setup Backend Project 2'},
-      {id:'3',title:'Setup Backend Project 3'}
+     {id:'2',title:'Do Setup Backend Project 2'},
+      {id:'3',title:'Kh Setup Backend Project 3'}
   ]
  });
   const [doingList,setDoingList] =useState<ListType>({
   id:'1',title:"Doing",items:[
     {id:'1',title:'Setup Backend Project'},
-     {id:'2',title:'Setup Backend Project 2'}
+     {id:'2',title:'Doing Setup Backend Project 2'}
     
   ]
  });
@@ -48,6 +53,18 @@ export const Board = (): ReactNode => {
 
   })
  }
+ const sortedToDoList=useMemo(()=>{ 
+      return {...todoList,items:[...todoList.items].sort(cb)}
+    },[todoList])
+    const sortedDoingList=useMemo(()=>{ 
+      return {...doingList,items:[...doingList.items].sort(cb)}
+    },[doingList])
+
+    const sortedDoneList=useMemo(()=>{ 
+      return {...doneList,items:[...doneList.items].sort(cb)}
+    },[doneList])
+
+
 
   return (
     <>
@@ -66,14 +83,14 @@ export const Board = (): ReactNode => {
         </div>
            <ul className={styles.lists}>
             <li>
-              <List list={todoList}/>
+              <List list={sortedToDoList}/>
             </li>
               <li>
-              <List list={doingList}/>
+              <List list={sortedDoingList}/>
             </li>
             
               <li>
-              <List list={doneList}/>
+              <List list={sortedDoneList}/>
             </li>
             
             
