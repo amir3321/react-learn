@@ -15,7 +15,7 @@ import { Button } from '../Button/Button';
   
 // }
 export default function Board (): ReactNode {
-  const [lists,setlists]=useState<ListType[]>(listsData)
+  const [lists,setLists]=useState<ListType[]>(listsData)
   const [activeListId,setActiveListId]=useState<string | null>(null);
   const [activeItemId,setActiveItemId]=useState<string | null>(null);
 
@@ -63,6 +63,38 @@ const handleListItemClick=(listId:string,itemId:string):void=>{
  console.warn('test1');
 
 };
+const handleRemoveButtonClick=():void=>{
+  setLists(
+   
+    (old)=>{
+       try{
+      const activeListIndex=old.findIndex(list=>list.id===activeListId);
+      if(activeListIndex==-1){
+        console.error('can not find desired list.');
+        return old;
+      }
+      const clone=[...old];
+      const activeList={...clone[activeListIndex]};
+
+        const activeItemIndex=activeList.items.findIndex(item=>item.id===activeItemId);
+         if(activeItemIndex==-1){
+        console.error('can not find desired item.');
+        return old;
+      }
+      activeList.items.splice(activeItemIndex,1);
+
+      clone[activeListIndex]=activeList;
+      return clone;
+    }finally{
+      setActiveItemId(null);
+      setActiveListId(null);
+    }
+
+
+    }
+  )
+
+}
 
   return (
     
@@ -77,7 +109,7 @@ const handleListItemClick=(listId:string,itemId:string):void=>{
          { lists.filter((list)=>list.id !== activeListId).map((list,index)=>(
             <Button key={index}>{list.title}</Button>
           ))}
-          <Button>Remove</Button>
+          <Button onClick={handleRemoveButtonClick}>Remove</Button>
            </div>
           )}
          
