@@ -6,12 +6,12 @@ export const listsData=[
   ]
 
   },{
-    id:'1',title:"Doing",items:[
+    id:'2',title:"Doing",items:[
     {id:'1',title:'Setup Backend Project'},
      {id:'2',title:'Doing Setup Backend Project 2'}
     
   ]
-  },{id:'1',title:"Done",items:[
+  },{id:'3',title:"Done",items:[
     {id:'1',title:'Setup Backend Project'},
      
   ]}

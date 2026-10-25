@@ -2,10 +2,11 @@
                 display: inline-flex;
                 align-items: center;
                 gap: 1ch;
+                font-size: var(--fz-300);
 
                 border-radius: var(--border-radius-1);
                 border: none;
-                padding: 0.5rem 1rem;
+                padding: 0.35rem 0.75rem;
                 /* text-transform: uppercase; */
                 transition: 500ms cubic-bezier(0.16, 1, 0.3, 1);
                 transition-property: background-color,border-color;
@@ -15,9 +16,9 @@
                     background-color: var(--background-color);
                     color:var(--color);
                     &.default{
-                        --background-color:var(--color-gray-4);
+                        --background-color:var(--color-gray-3);
                         --color:var(--color-gray-9);
-                        --background-color-hover:var(--color-gray-6);
+                        --background-color-hover:var(--color-gray-4);
 
                     }
                      &.primary{

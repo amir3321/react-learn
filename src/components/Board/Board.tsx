@@ -7,6 +7,7 @@ import MingcuteAddLine from '@/icons/MingcuteAddLine';
 import  List  from '../List/List';
 import type { ListType } from '@/types/list';
 import { listsData } from '@/data/lists-data';
+import { Button } from '../Button/Button';
 //import type { ListItemType } from '@/types/list-item';
 
 // function cb (a:ListItemType,b:ListItemType):number{
@@ -15,7 +16,8 @@ import { listsData } from '@/data/lists-data';
 // }
 export default function Board (): ReactNode {
   const [lists,setlists]=useState<ListType[]>(listsData)
- 
+  const [activeListId,setActiveListId]=useState<string | null>(null);
+  const [activeItemId,setActiveItemId]=useState<string | null>(null);
 
 
 //  const handleEditButtonClick=():void=>{
@@ -47,21 +49,38 @@ export default function Board (): ReactNode {
 //       return {...doneList,items:[...doneList.items].sort(cb)}
 //     },[doneList])
 
-const handleListItemClick=useCallback((id:string):void=>{
-  console.log('clicked item...');
-  setlists((old)=>{
-    const clone = {...old[0],items:[...old[0].items].filter(item=>item.id!==id)};
-    return [clone,old[1],old[2]];
-  });
+// const handleListItemClick=useCallback((id:string):void=>{
+//   console.log('clicked item...');
+//   setlists((old)=>{
+//     const clone = {...old[0],items:[...old[0].items].filter(item=>item.id!==id)};
+//     return [clone,old[1],old[2]];
+//   })},[]);
 
-},[]);
+const handleListItemClick=(listId:string,itemId:string):void=>{
+  setActiveListId(listId);
+ setActiveItemId(itemId);
+ 
+ console.warn('test1');
+
+};
 
   return (
-    <>
+    
       <div className={styles['board']}>
          <div className={styles.toolbar}>
         <div className={styles.title}>🎫BoardTitle</div>
         <div className={styles.actions}>
+        
+         {         
+          activeListId !== null && (
+            <div className={styles.spacer}>
+         { lists.filter((list)=>list.id !== activeListId).map((list,index)=>(
+            <Button key={index}>{list.title}</Button>
+          ))}
+          <Button>Remove</Button>
+           </div>
+          )}
+         
      
           <IconButton >
             <MingcuteEdit2Line/>
@@ -72,20 +91,20 @@ const handleListItemClick=useCallback((id:string):void=>{
         </div>
         </div>
            <ul className={styles.lists}>
-            <li>
-              <List list={lists[0]} onClick={handleListItemClick}  />
+            {
+              lists.map((list)=>
+                 (
+            <li key={list.id}>
+              <List list={list} onClick={handleListItemClick}  />
             </li>
-              <li>
-              <List list={lists[1]}/>
-            </li>
-            
-              <li>
-              <List list={lists[2]}/>
-            </li>
-            
+
+              ))
+            }
+
+           
             
            </ul>
       </div>
-    </>
+    
   );
 }

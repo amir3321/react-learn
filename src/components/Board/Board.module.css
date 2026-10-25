@@ -24,6 +24,12 @@ block-size: 100%;
         display: flex;
         align-items: center;
         gap:0.25rem;
+        .spacer{
+          display: flex;
+           align-items: center;
+        gap:0.5rem;
+
+        }
     }
   }
   .lists {
