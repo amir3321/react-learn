@@ -1,18 +1,18 @@
 import styles from "./Button.module.css";
 import clsx from "clsx";
-import type { ComponentProps, ReactNode } from "react";
+import { memo, type ComponentProps, type ReactNode } from "react";
 
 type props = ComponentProps<"button"> & {
   color?: "default" | "primary";
   variant?: "solid" | "outlined";
 };
-export const Button = ({
+const Button = memo(function Button({
   className,
   variant = "solid",
   color = "default",
   children,
   ...otherProps
-}: props): ReactNode => {
+}: props): ReactNode {
   return (
     <>
       <button
@@ -28,4 +28,6 @@ export const Button = ({
       </button>
     </>
   );
-};
+});
+
+export default Button;

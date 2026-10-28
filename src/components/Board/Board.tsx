@@ -1,5 +1,5 @@
 import styles from './Board.module.css';
-import { useCallback, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import IconButton  from '../IconButton/IconButton';
 import MingcuteEdit2Line from '@/icons/MingcuteEdit2Line';
 import MingcuteAddLine from '@/icons/MingcuteAddLine';
@@ -7,18 +7,33 @@ import MingcuteAddLine from '@/icons/MingcuteAddLine';
 import  List  from '../List/List';
 import type { ListType } from '@/types/list';
 import { listsData } from '@/data/lists-data';
-import { Button } from '../Button/Button';
+import  Button  from '../Button/Button';
 //import type { ListItemType } from '@/types/list-item';
 
 // function cb (a:ListItemType,b:ListItemType):number{
 //   return a.title.localeCompare(b.title);
   
 // }
+
+
+
+function save(lists:ListType[]):void{
+  localStorage.setItem('lists',JSON.stringify(lists));
+
+}
+function load():ListType[]{
+  const item=localStorage.getItem('lists');
+  if(!item){return listsData;}
+  return JSON.parse(item);
+
+}
+
 export default function Board (): ReactNode {
-  const [lists,setLists]=useState<ListType[]>(listsData)
+  const [lists,setLists]=useState<ListType[]>(load)
   const [activeListId,setActiveListId]=useState<string | null>(null);
   const [activeItemId,setActiveItemId]=useState<string | null>(null);
 
+useEffect(()=>{save(lists)},[lists]);
 
 //  const handleEditButtonClick=():void=>{
 //   setTodoList((old)=>{
@@ -63,7 +78,7 @@ const handleListItemClick=(listId:string,itemId:string):void=>{
  console.warn('test1');
 
 };
-const handleRemoveButtonClick=():void=>{
+const handleRemoveButtonClick=useCallback(():void=>{
   setLists(
    
     (old)=>{
@@ -84,6 +99,7 @@ const handleRemoveButtonClick=():void=>{
       activeList.items.splice(activeItemIndex,1);
 
       clone[activeListIndex]=activeList;
+     // save(clone);
       return clone;
     }finally{
       setActiveItemId(null);
@@ -94,9 +110,9 @@ const handleRemoveButtonClick=():void=>{
     }
   )
 
-}
+},[activeListId,activeItemId]);
 
-const handleMoveButtonClick=(destinationListId:string):void=>{
+const handleMoveButtonClick=useCallback((destinationListId:string):void=>{
   setLists(
    
     (old)=>{
@@ -125,6 +141,7 @@ const handleMoveButtonClick=(destinationListId:string):void=>{
 
       clone[activeListIndex]=activeList;
       clone[destinationListIndex]=destinationList;
+      // save(clone);
       return clone;
     }finally{
       setActiveItemId(null);
@@ -135,12 +152,23 @@ const handleMoveButtonClick=(destinationListId:string):void=>{
     }
   )
 
+},[activeListId,activeItemId]);
+
+const handleCreateButtonClick=():void=>{
+  setLists(old => {
+    const clone=[...old];
+    const id=globalThis.crypto.randomUUID();
+    clone[0]={...clone[0],items:[...clone[0].items,{id,title:id}]};
+    // save(clone);
+    return clone;
+
+  })
+
 }
 
 
-
-
-
+ const editIcon=useMemo(()=>  <MingcuteEdit2Line/> ,[])
+  const addIcon=useMemo(()=>  <MingcuteAddLine/> ,[])
 
 
   return (
@@ -162,10 +190,10 @@ const handleMoveButtonClick=(destinationListId:string):void=>{
          
      
           <IconButton >
-            <MingcuteEdit2Line/>
+           {editIcon}
           </IconButton>
-          <IconButton >
-            <MingcuteAddLine/>
+          <IconButton onClick={handleCreateButtonClick} >
+           {addIcon}
           </IconButton>
         </div>
         </div>

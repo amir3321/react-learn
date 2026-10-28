@@ -1,5 +1,5 @@
 import { BoardCard } from '@/components/BoardCard/BoardCard';
-import { Button } from '@/components/Button/Button';
+import  Button from '@/components/Button/Button';
 
 import styles from '@/pages/HomePage/HomePage.module.css';
 import type { ReactNode } from 'react';
