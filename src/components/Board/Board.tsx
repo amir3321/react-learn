@@ -35,6 +35,20 @@ export default function Board (): ReactNode {
 
 useEffect(()=>{save(lists)},[lists]);
 
+useEffect(()=>{// فقط یکبار موقع اجرای اولیه اجرا میشود و بعد چون هیچ متغیری ندارد دیگر اجرا نمی شود
+  const handleKeydown=(e:KeyboardEvent):void=>{
+      if(e.code !== "Escape"){return;}
+    setActiveItemId(null);
+    setActiveListId(null);
+
+  };
+
+  document.addEventListener("keydown",handleKeydown);
+
+return ():void=>{document.removeEventListener("keydown",handleKeydown);}
+
+},[])
+
 //  const handleEditButtonClick=():void=>{
 //   setTodoList((old)=>{
 //     const clone=[...old.items];
@@ -75,7 +89,7 @@ const handleListItemClick=(listId:string,itemId:string):void=>{
   setActiveListId(listId);
  setActiveItemId(itemId);
  
- console.warn('test1');
+ //console.warn('test1');
 
 };
 const handleRemoveButtonClick=useCallback(():void=>{
