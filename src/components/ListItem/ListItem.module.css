@@ -4,6 +4,20 @@
             box-shadow: var(--shadow-2);
             padding: 0.5rem;
             border-radius: var(--border-radius-2);
-            
+            display: grid;
+            grid-template-columns: 1fr auto ;
+            gap:1rem;
+            align-items: start;
+
+
+      .remove-icon{
+        opacity: 0;
+      } 
+      &:hover{
+        .remove-icon{
+            opacity: 1;
+        }
+       
+      }     
           
  }

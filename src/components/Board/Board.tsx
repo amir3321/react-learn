@@ -1,5 +1,5 @@
 import styles from './Board.module.css';
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import IconButton  from '../IconButton/IconButton';
 import MingcuteEdit2Line from '@/icons/MingcuteEdit2Line';
 import MingcuteAddLine from '@/icons/MingcuteAddLine';
@@ -92,20 +92,18 @@ const handleListItemClick=(listId:string,itemId:string):void=>{
  //console.warn('test1');
 
 };
-const handleRemoveButtonClick=useCallback(():void=>{
-  setLists(
-   
-    (old)=>{
-       try{
-      const activeListIndex=old.findIndex(list=>list.id===activeListId);
+const handleListItemRemoveClick=(listId:string,itemId:string):void=>{
+  setLists((old)=>{
+       
+      const activeListIndex=old.findIndex(list=>list.id===listId);
       if(activeListIndex==-1){
         console.error('can not find desired list.');
         return old;
       }
       const clone=[...old];
-      const activeList={...clone[activeListIndex]};
+      const activeList={...clone[activeListIndex],items:[...clone[activeListIndex].items]};
 
-        const activeItemIndex=activeList.items.findIndex(item=>item.id===activeItemId);
+        const activeItemIndex=activeList.items.findIndex(item=>item.id===itemId);
          if(activeItemIndex==-1){
         console.error('can not find desired item.');
         return old;
@@ -115,16 +113,14 @@ const handleRemoveButtonClick=useCallback(():void=>{
       clone[activeListIndex]=activeList;
      // save(clone);
       return clone;
-    }finally{
-      setActiveItemId(null);
-      setActiveListId(null);
-    }
+    
 
 
     }
   )
 
-},[activeListId,activeItemId]);
+};
+//,[activeListId,activeItemId]);
 
 const handleMoveButtonClick=useCallback((destinationListId:string):void=>{
   setLists(
@@ -181,8 +177,8 @@ const handleCreateButtonClick=():void=>{
 }
 
 
- const editIcon=useMemo(()=>  <MingcuteEdit2Line/> ,[])
-  const addIcon=useMemo(()=>  <MingcuteAddLine/> ,[])
+//  const editIcon=useMemo(()=>  <MingcuteEdit2Line/> ,[])
+//   const addIcon=useMemo(()=>  <MingcuteAddLine/> ,[])
 
 
   return (
@@ -198,16 +194,17 @@ const handleCreateButtonClick=():void=>{
          { lists.filter((list)=>list.id !== activeListId).map((list)=>(
             <Button key={list.id} onClick={()=>handleMoveButtonClick(list.id)}>{list.title}</Button>
           ))}
-          <Button onClick={handleRemoveButtonClick}>Remove</Button>
+          {/* <Button onClick={handleRemoveButtonClick}>Remove</Button> */}
            </div>
           )}
          
      
           <IconButton >
-           {editIcon}
+            <MingcuteEdit2Line/> 
+           {/*      {editIcon} */}
           </IconButton>
           <IconButton onClick={handleCreateButtonClick} >
-           {addIcon}
+          <MingcuteAddLine/>
           </IconButton>
         </div>
         </div>
@@ -216,7 +213,7 @@ const handleCreateButtonClick=():void=>{
               lists.map((list)=>
                  (
             <li key={list.id}>
-              <List list={list} onClick={handleListItemClick}  />
+              <List list={list} onRemove={handleListItemRemoveClick} onClick={handleListItemClick}  />
             </li>
 
               ))
