@@ -1,9 +1,9 @@
 import styles from "./IconButton.module.css";
 import clsx from "clsx";
-import { memo, type ComponentProps, type ReactNode } from "react";
+import  type {  ComponentProps, ReactNode } from "react";
 
 type props = ComponentProps<"button"> ;
-const IconButton=memo( function IconButton ({
+const IconButton= function IconButton ({
   className,
   children,
   ...otherProps
@@ -15,6 +15,6 @@ const IconButton=memo( function IconButton ({
       </button>
     
   );
-});
+};
 
 export default IconButton;

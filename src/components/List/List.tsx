@@ -1,6 +1,6 @@
 import type { ListType } from "@/types/list";
 import styles from "./List.module.css";
-import { memo, useMemo, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import MingcuteMore1Line from "@/icons/MingcuteMore1Line";
 import IconButton from "../IconButton/IconButton";
 import ListItem from "../ListItem/ListItem";
@@ -8,16 +8,16 @@ type Props = {
   list: ListType;
   onClick?:(listId:string,itemId:string)=>void;
 };
- const List = memo( function List ({ list ,onClick}: Props): ReactNode {
+ const List =  function List ({ list ,onClick}: Props): ReactNode {
 
-  const moreIcon=useMemo(()=> <MingcuteMore1Line />,[])
+  //const moreIcon=useMemo(()=> ,[])
   return (
     
       <div className={styles["list"]}>
         <div className={styles.header}>
           <div className={styles.title}>📚{list.title}</div>
           <IconButton>
-            {moreIcon}
+           <MingcuteMore1Line />
           </IconButton>
         </div>
         <ul className={styles.items}>
@@ -30,5 +30,5 @@ type Props = {
       </div>
     
   );
-});
+};
 export default List;

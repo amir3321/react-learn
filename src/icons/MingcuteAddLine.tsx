@@ -1,5 +1,5 @@
-import  { type SVGProps,type ReactNode, memo } from "react";
-const MingcuteAddLine=memo( function MingcuteAddLine(props: SVGProps<SVGSVGElement>): ReactNode {
+import  { type SVGProps,type ReactNode } from "react";
+const MingcuteAddLine= function MingcuteAddLine(props: SVGProps<SVGSVGElement>): ReactNode {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,5 +18,5 @@ const MingcuteAddLine=memo( function MingcuteAddLine(props: SVGProps<SVGSVGEleme
       />
     </svg>
   );
-});
+};
 export default MingcuteAddLine;

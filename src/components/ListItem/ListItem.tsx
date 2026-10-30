@@ -1,5 +1,5 @@
 import styles from './ListItem.module.css';
-import { memo, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import type { ListItemType } from '@/types/list-item';
 
 type Props={
@@ -7,7 +7,7 @@ type Props={
   item:ListItemType;
   onClick?:(listId:string,itemId:string)=>void;
 }
-const ListItem=memo( function ListItem ({listId,item,onClick}:Props): ReactNode  {
+const ListItem= function ListItem ({listId,item,onClick}:Props): ReactNode  {
   return (
     
       <div className={styles['list-item']} onClick={()=>onClick?.(listId,item.id)}>
@@ -15,6 +15,6 @@ const ListItem=memo( function ListItem ({listId,item,onClick}:Props): ReactNode 
         </div>
     
   );
-});
+};
 
 export default ListItem;
