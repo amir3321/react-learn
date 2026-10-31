@@ -1,5 +1,5 @@
 import styles from './Board.module.css';
-import { useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import { useCallback,  useEffect, useState, type ReactNode } from 'react';
 import IconButton  from '../IconButton/IconButton';
 import MingcuteEdit2Line from '@/icons/MingcuteEdit2Line';
 import MingcuteAddLine from '@/icons/MingcuteAddLine';
@@ -8,7 +8,7 @@ import  List  from '../List/List';
 import type { ListType } from '@/types/list';
 import { listsData } from '@/data/lists-data';
 import  Button  from '../Button/Button';
-import { CounterContext } from '@/context/counter-context';
+
 //import type { ListItemType } from '@/types/list-item';
 
 // function cb (a:ListItemType,b:ListItemType):number{
@@ -30,7 +30,7 @@ function load():ListType[]{
 }
 
 export default function Board (): ReactNode {
-const {count,increment}= useContext(CounterContext);
+// const {count,increment}= useContext(CounterContext);
 
   const [lists,setLists]=useState<ListType[]>(load)
   const [activeListId,setActiveListId]=useState<string | null>(null);
@@ -168,7 +168,6 @@ const handleMoveButtonClick=useCallback((destinationListId:string):void=>{
 },[activeListId,activeItemId]);
 
 const handleCreateButtonClick=():void=>{
-  increment();
   setLists(old => {
     const clone=[...old];
     const id=globalThis.crypto.randomUUID();
@@ -189,7 +188,7 @@ const handleCreateButtonClick=():void=>{
     
       <div className={styles['board']}>
          <div className={styles.toolbar}>
-        <div className={styles.title}>🎫BoardTitle {count}</div>
+        <div className={styles.title}>🎫BoardTitle </div>
         <div className={styles.actions}>
         
          {         
