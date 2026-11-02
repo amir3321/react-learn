@@ -1,5 +1,5 @@
 import styles from './Board.module.css';
-import {   useContext, useEffect, useState, type ReactNode } from 'react';
+import {   use, useEffect, useState, type ReactNode } from 'react';
 import IconButton  from '../IconButton/IconButton';
 import MingcuteEdit2Line from '@/icons/MingcuteEdit2Line';
 import MingcuteAddLine from '@/icons/MingcuteAddLine';
@@ -22,7 +22,7 @@ import { BoardContext } from '@/context/board-context';
 
 
 export default function Board (): ReactNode {
- const {lists,create,remove,move}= useContext(BoardContext);
+ const {lists,create,move}= use(BoardContext);//useContext  to  use
 
 
   const [activeListId,setActiveListId]=useState<string | null>(null);
@@ -87,9 +87,9 @@ const handleListItemClick=(listId:string,itemId:string):void=>{
  //console.warn('test1');
 
 };
-const handleListItemRemoveClick=(listId:string,itemId:string):void=>{
-  remove(listId,itemId);
-};
+// const handleListItemRemoveClick=(listId:string,itemId:string):void=>{
+//   remove(listId,itemId);
+// };
 //,[activeListId,activeItemId]);
 
 const handleMoveButtonClick=(toListId:string):void=>{
@@ -143,7 +143,7 @@ const handleCreateButtonClick=():void=>{
               lists.map((list)=>
                  (
             <li key={list.id}>
-              <List list={list} onRemove={handleListItemRemoveClick} onClick={handleListItemClick}  />
+              <List list={list}  onClick={handleListItemClick}  />
             </li>
 
               ))

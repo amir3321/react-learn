@@ -1,7 +1,8 @@
 import { BoardContext } from "@/context/board-context";
 import { listsData } from "@/data/lists-data";
+import { ListReducer } from "@/reducers/list-reducer";
 import type { ListType } from "@/types/list";
-import  { useEffect, useState, type PropsWithChildren, type ReactNode } from "react";
+import  { useEffect, useReducer, useState, type PropsWithChildren, type ReactNode } from "react";
 
 function save(lists: ListType[]): void {
   localStorage.setItem("lists", JSON.stringify(lists));
@@ -16,85 +17,23 @@ function load(): ListType[] {
 
 type Props = PropsWithChildren;
 export default function BoardProvider({ children }: Props): ReactNode {
-  const [lists, setLists] =useState<ListType[]>(load);
+  // const [lists, setLists] =useState<ListType[]>(load);
+  const [lists,dispatch]= useReducer(ListReducer,load())
+
   useEffect(() => {
     save(lists);
   }, [lists]);
 
   const create = (): void => {
-    setLists((old:ListType[]) => {
-      const clone = [...old];
-      const id = globalThis.crypto.randomUUID();
-      clone[0] = { ...clone[0], items: [...clone[0].items, { id, title: id }] };
-      // save(clone);
-      return clone;
-    });
+    dispatch({type:'created'});
   };
 
   const remove = (listId: string, itemId: string): void => {
-    setLists((old:ListType[]) => {
-      const listIndex = old.findIndex((list) => list.id === listId);
-      if (listIndex == -1) {
-        console.error("can not find desired list.");
-        return old;
-      }
-      const clone = [...old];
-      const list = {
-        ...clone[listIndex],
-        items: [...clone[listIndex].items],
-      };
-
-      const itemIndex = list.items.findIndex(
-        (item) => item.id === itemId,
-      );
-      if (itemIndex == -1) {
-        console.error("can not find desired item.");
-        return old;
-      }
-      list.items.splice(itemIndex, 1);
-
-      clone[listIndex] = list;
-      // save(clone);
-      return clone;
-    });
+    dispatch({type:'removed',listId,itemId});
   };
 
   const move = (fromListId:string,itemId:string, toListId:string): void => {
-    setLists((old:ListType[]) => {
-      const fromListIndex = old.findIndex((list) => list.id === fromListId);
-      const toListIndex = old.findIndex(
-        (list) => list.id === toListId,
-      );
-
-      if (fromListIndex === -1 || toListIndex === -1) {
-        console.error("can not find desired list.");
-        return old;
-      }
-      const clone = [...old];
-      const list = {
-        ...clone[fromListIndex],
-        items: [...clone[fromListIndex].items],
-      };
-      const destinationList = {
-        ...clone[toListIndex],
-        items: [...clone[toListIndex].items],
-      };
-
-      const itemIndex = list.items.findIndex(
-        (item) => item.id === itemId,
-      );
-      if (itemIndex == -1) {
-        console.error("can not find desired item.");
-        return old;
-      }
-      const [activeItem] = list.items.splice(itemIndex, 1);
-      destinationList.items.push(activeItem);
-
-      clone[fromListIndex] = list;
-      clone[toListIndex] = destinationList;
-      // save(clone);
-      return clone;
-    });
+    dispatch({type:'moved',fromListId,itemId,toListId});
   };
 
   return (
