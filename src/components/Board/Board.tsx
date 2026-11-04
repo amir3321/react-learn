@@ -1,5 +1,5 @@
 import styles from './Board.module.css';
-import {   use, useEffect, useState, type ReactNode } from 'react';
+import {   use, type ReactNode } from 'react';
 import IconButton  from '../IconButton/IconButton';
 import MingcuteEdit2Line from '@/icons/MingcuteEdit2Line';
 import MingcuteAddLine from '@/icons/MingcuteAddLine';
@@ -9,6 +9,7 @@ import  List  from '../List/List';
 // import { listsData } from '@/data/lists-data';
 import  Button  from '../Button/Button';
 import { BoardContext } from '@/context/board-context';
+import { ActiveItemContext } from '@/context/active-item-context';
 
 //import type { ListItemType } from '@/types/list-item';
 
@@ -23,81 +24,17 @@ import { BoardContext } from '@/context/board-context';
 
 export default function Board (): ReactNode {
  const {lists,create,move}= use(BoardContext);//useContext  to  use
-
-
-  const [activeListId,setActiveListId]=useState<string | null>(null);
-  const [activeItemId,setActiveItemId]=useState<string | null>(null);
+const {activeListId,activeItemId,deactivate}=use(ActiveItemContext);
 
 
 
-useEffect(()=>{// فقط یکبار موقع اجرای اولیه اجرا میشود و بعد چون هیچ متغیری ندارد دیگر اجرا نمی شود
-  const handleKeydown=(e:KeyboardEvent):void=>{
-      if(e.code !== "Escape"){return;}
-    setActiveItemId(null);
-    setActiveListId(null);
 
-  };
-
-  document.addEventListener("keydown",handleKeydown);
-
-return ():void=>{document.removeEventListener("keydown",handleKeydown);}
-
-},[])
-
-//  const handleEditButtonClick=():void=>{
-//   setTodoList((old)=>{
-//     const clone=[...old.items];
-//     clone.splice(1,1);
-//     return {...old,items:clone};
-
-//   })
-
-//  }
-
-//  const handleAddButtonClick=():void=>{
-//   setDoingList((old)=>{
-//     const clone=[...old.items];
-//     clone.splice(1,1);
-//     return {...old,items:clone}
-
-//   })
-//  }
-//  const sortedToDoList=useMemo(()=>{ 
-//       return {...todoList,items:[...todoList.items].sort(cb)}
-//     },[todoList])
-//     const sortedDoingList=useMemo(()=>{ 
-//       return {...doingList,items:[...doingList.items].sort(cb)}
-//     },[doingList])
-
-//     const sortedDoneList=useMemo(()=>{ 
-//       return {...doneList,items:[...doneList.items].sort(cb)}
-//     },[doneList])
-
-// const handleListItemClick=useCallback((id:string):void=>{
-//   console.log('clicked item...');
-//   setlists((old)=>{
-//     const clone = {...old[0],items:[...old[0].items].filter(item=>item.id!==id)};
-//     return [clone,old[1],old[2]];
-//   })},[]);
-
-const handleListItemClick=(listId:string,itemId:string):void=>{
-  setActiveListId(listId);
- setActiveItemId(itemId);
- 
- //console.warn('test1');
-
-};
-// const handleListItemRemoveClick=(listId:string,itemId:string):void=>{
-//   remove(listId,itemId);
-// };
-//,[activeListId,activeItemId]);
 
 const handleMoveButtonClick=(toListId:string):void=>{
   if(activeListId && activeItemId)
   move(activeListId,activeItemId,toListId);
 
-  setActiveItemId(null);
-  setActiveListId(null);
+  deactivate();
 
 };
 
@@ -143,7 +80,7 @@ const handleCreateButtonClick=():void=>{
               lists.map((list)=>
                  (
             <li key={list.id}>
-              <List list={list}  onClick={handleListItemClick}  />
+              <List list={list}  />
             </li>
 
               ))
