@@ -6,6 +6,7 @@ import MingcuteDelete2Line from '@/icons/MingcuteDelete2Line';
 import { BoardContext } from '@/context/board-context';
 import { ActiveItemContext } from '@/context/active-item-context';
 import clsx from 'clsx';
+import { toast } from 'react-toastify';
 
 
 type Props={
@@ -32,7 +33,7 @@ const handleListItemClick=():void=>{
   
     remove(listId,item.id);
     deactivate();
-
+    toast.success("Item Removed Successfull.");
   }
   return (
     

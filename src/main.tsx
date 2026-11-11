@@ -10,13 +10,15 @@ import { BrowserRouter } from "react-router";
 import { ErrorBoundary } from "react-error-boundary";
 import { ErrorPage } from "./pages/ErrorPage/ErrorPage.tsx";
 import { StrictMode } from "react";
+import Toaster from "./components/Toaster/Toaster.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-  <ErrorBoundary FallbackComponent={ErrorPage}  onReset={() => {}} >
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  </ErrorBoundary>
-  </StrictMode>
-  );
+    <ErrorBoundary FallbackComponent={ErrorPage} onReset={() => {}}>
+      <BrowserRouter>
+        <App />
+        <Toaster />
+      </BrowserRouter>
+    </ErrorBoundary>
+  </StrictMode>,
+);

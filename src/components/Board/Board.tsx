@@ -10,6 +10,7 @@ import  List  from '../List/List';
 import  Button  from '../Button/Button';
 import { BoardContext } from '@/context/board-context';
 import { ActiveItemContext } from '@/context/active-item-context';
+import { toast } from 'react-toastify';
 
 //import type { ListItemType } from '@/types/list-item';
 
@@ -35,11 +36,15 @@ const handleMoveButtonClick=(toListId:string):void=>{
   move(activeListId,activeItemId,toListId);
 
   deactivate();
+  toast.success("Item Moved Successfull.");
 
 };
 
 const handleCreateButtonClick=():void=>{
+  console.warn('check')
+   
   create();
+  toast.success("Item Created Successfull.");
 
 }
 

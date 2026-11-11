@@ -29,3 +29,4 @@ git push -u origin main
     npm i clsx   
     npm i react-router
     npm i react-error-boundary  
+    npm i --save react-toastify
