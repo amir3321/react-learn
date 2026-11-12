@@ -22,6 +22,8 @@
 
      --color-red-6:hsl(0,95%,66%);
 
+--color-backdrop:hsl(0,0%,0%,40%);
+
 --color-surface-1:var(--color-gray-3);
 --color-surface-2:var(--color-gray-1);
 --color-surface-3:var(--color-white);
