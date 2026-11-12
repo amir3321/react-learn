@@ -7,11 +7,12 @@ import clsx from 'clsx';
 
 type Props=ComponentProps<'dialog'> &{
   ref:RefObject<HTMLDialogElement | null >;
+  contentClassName?:string;
   heading:string;
 }
 //از روی ...otherProps برش میداریم بعد از اجرای ایونت خودمون دوباره داش میزنیم مثل کلیک کاربر
 export default function Modal({
-  ref,className,heading,children,onClick,...otherProps
+  ref,contentClassName,className,heading,children,onClick,...otherProps
 }:Props): ReactNode {
   
 const handleDialogClick=(e:MouseEvent<HTMLDialogElement>):void=>{
@@ -34,14 +35,13 @@ const handleDialogClick=(e:MouseEvent<HTMLDialogElement>):void=>{
       {...otherProps}>
         <header>
           <div className={styles.heading}>{heading}</div>
+          <div className={styles.action}>
           <IconButton onClick={handleCloseButtonClick}>
             <MingcuteCloseLine/>
           </IconButton>
-
+          </div>
         </header>
-        <main>
-          {children}
-        </main>
+        <main className={contentClassName}>{children}</main>
       </dialog>
       </>
     

@@ -1,5 +1,6 @@
 // import Board from "@/components/Board/Board";
 import Button from "@/components/Button/Button";
+import CreateListItemModal from "@/components/CreateListItemModal/CreateListItemModal";
 import Modal from "@/components/Modal/Modal";
 import TextInput from "@/components/TextInput/TextInput";
 
@@ -22,12 +23,10 @@ export const BoardPage = (): ReactNode => {
       <ActiveItemProvider>
         <div className={styles["board-page"]}>
           {/* <Board /> */}
-          <TextInput label="This is label"></TextInput>
-           <TextInput label="This is label 2"></TextInput>
-           <Button onClick={handleOpenButtonClick}>open</Button>
-          <Modal ref={ref} heading="This is heading">
-            this is children
-          </Modal>
+          <Button onClick={handleOpenButtonClick}>open</Button>
+          <CreateListItemModal ref={ref}/>
+           
+         
         </div>
       </ActiveItemProvider>
     </BoardProvider>
