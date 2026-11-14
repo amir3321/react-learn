@@ -24,7 +24,7 @@ import { toast } from 'react-toastify';
 
 
 export default function Board (): ReactNode {
- const {lists,create,move}= use(BoardContext);//useContext  to  use
+ const {lists,move}= use(BoardContext);//useContext  to  use
 const {activeListId,activeItemId,deactivate}=use(ActiveItemContext);
 
 
@@ -40,13 +40,13 @@ const handleMoveButtonClick=(toListId:string):void=>{
 
 };
 
-const handleCreateButtonClick=():void=>{
-  console.warn('check')
+// const handleCreateButtonClick=():void=>{
+//   // console.warn('check')
    
-  create();
-  toast.success("Item Created Successfull.");
+//   // create();
+//   // toast.success("Item Created Successfull.");
 
-}
+// }
 
 
 //  const editIcon=useMemo(()=>  <MingcuteEdit2Line/> ,[])
@@ -75,7 +75,7 @@ const handleCreateButtonClick=():void=>{
             <MingcuteEdit2Line/> 
            {/*      {editIcon} */}
           </IconButton>
-          <IconButton onClick={handleCreateButtonClick} >
+          <IconButton  >
           <MingcuteAddLine/>
           </IconButton>
         </div>
