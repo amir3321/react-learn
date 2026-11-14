@@ -1,8 +1,8 @@
 // import Board from "@/components/Board/Board";
+import Board from "@/components/Board/Board";
 import Button from "@/components/Button/Button";
 import CreateListItemModal from "@/components/CreateListItemModal/CreateListItemModal";
-import Modal from "@/components/Modal/Modal";
-import TextInput from "@/components/TextInput/TextInput";
+
 
 import styles from "@/pages/BoardPage/BoardPage.module.css";
 import ActiveItemProvider from "@/providers/ActiveItemProvider";
@@ -22,11 +22,11 @@ export const BoardPage = (): ReactNode => {
     <BoardProvider>
       <ActiveItemProvider>
         <div className={styles["board-page"]}>
-          {/* <Board /> */}
+          
           <Button onClick={handleOpenButtonClick}>open</Button>
-          <CreateListItemModal ref={ref}/>
+          <CreateListItemModal ref={ref} listId="1"/>
            
-         
+         <Board />
         </div>
       </ActiveItemProvider>
     </BoardProvider>
