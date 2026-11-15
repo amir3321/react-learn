@@ -1,5 +1,5 @@
 import styles from '@/components/CreateListItemModal/CreateListItemModal.module.css';
-import { use, useRef, type ComponentProps, type ReactNode, type SubmitEvent } from 'react';
+import { use, useRef, useState, type ComponentProps, type ReactNode, type SubmitEvent } from 'react';
 import Modal from '../Modal/Modal';
 import TextInput from '../TextInput/TextInput';
 import Button from '../Button/Button';
@@ -11,8 +11,11 @@ type Props=Omit<ComponentProps<typeof Modal>,'children'|'heading'> &{
   listId:string;
 };
 
-export default function CreateListItemModal({listId, contentClassName, ref,...otherProps}:Props): ReactNode {
+export default function CreateListItemModal({
+  listId, contentClassName, ref,...otherProps}:Props): ReactNode {
   
+    const [titleError,setTitleError]=useState<string|null>(null);
+
   const {create}=use(BoardContext);
 
   const formRef=useRef<HTMLFormElement>(null)
@@ -23,25 +26,46 @@ export default function CreateListItemModal({listId, contentClassName, ref,...ot
 
    const id= globalThis.crypto.randomUUID();
     const title = formData.get('title')as string;//work with name tag html
-
-    create(listId , {id,title});
+    if(!validateTitle(title)){
+      return;
+    }
+    create(listId , {id,title:title.trim()});
     toast.success("Item created successfully.");
-    e.currentTarget.reset();
+    
 
     ref.current?.close();
 
   }
+  const validateTitle=(title:unknown):boolean=>{
+    if(typeof title !=="string")
+      {setTitleError("Title must be string."); return false;}
+    if(title.trim().length===0)
+      {setTitleError("Title can not empty."); return false;}
+    
+    setTitleError(null);
+    return true;
+
+  }
+const handleModalClose=():void=>{
+   setTitleError(null);
+  formRef.current?.reset();
+   
+     
+  }
+  
+
   const handleCancelButtonClick=():void=>{
+    
      ref.current?.close();
   }
   
   return (
    
       <Modal ref={ref} contentClassName={clsx(styles['create-list-item-modal'],contentClassName)} 
-      heading='Create new Item'
+      heading='Create new Item' onClose={handleModalClose}
       {...otherProps}>
         <form ref={formRef} onSubmit={handleFormSubmit}>
-          <TextInput label='Title' name='title' type='text'/>
+          <TextInput label='Title' name='title' type='text' error={titleError}/>
           <div className={styles.action}>
             <Button type='reset' onClick={handleCancelButtonClick}>Cancel</Button>
             <Button color='primary'>Submit</Button>

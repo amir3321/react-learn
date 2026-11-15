@@ -21,6 +21,7 @@
 
 
      --color-red-6:hsl(0,95%,66%);
+      --color-red-7:hsl(0,95%,59%);
 
 --color-backdrop:hsl(0,0%,0%,40%);
 
@@ -37,7 +38,7 @@
 --color-primary-dark:var(--color-blue-9);
 --color-primary-contrast:var(--color-white);
 
-
+--color-danger:var(--color-red-7)
 
 }
 .gray{
