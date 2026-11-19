@@ -7,10 +7,10 @@ import MingcuteAddLine from '@/icons/MingcuteAddLine';
 import  List  from '../List/List';
 // import type { ListType } from '@/types/list';
 // import { listsData } from '@/data/lists-data';
-import  Button  from '../Button/Button';
+// import  Button  from '../Button/Button';
 import { BoardContext } from '@/context/board-context';
-import { ActiveItemContext } from '@/context/active-item-context';
-import { toast } from 'react-toastify';
+// import { ActiveItemContext } from '@/context/active-item-context';
+// import { toast } from 'react-toastify';
 
 //import type { ListItemType } from '@/types/list-item';
 
@@ -24,22 +24,22 @@ import { toast } from 'react-toastify';
 
 
 export default function Board (): ReactNode {
- const {lists,dispatchLists}= use(BoardContext);//useContext  to  use
-const {activeListId,activeItemId,deactivate}=use(ActiveItemContext);
+ const {lists}= use(BoardContext);//useContext  to  use
+// const {activeListId,activeItemId,deactivate}=use(ActiveItemContext);
 
 
 
 
 
-const handleMoveButtonClick=(toListId:string):void=>{
-  if(activeListId && activeItemId)
-    dispatchLists({type:'moved',fromListId: activeListId,itemId: activeItemId,toListId})
-  // move(activeListId,activeItemId,toListId);
+// const handleMoveButtonClick=(toListId:string):void=>{
+//   if(activeListId && activeItemId)
+//     dispatchLists({type:'moved',fromListId: activeListId,itemId: activeItemId,toListId})
+//   // move(activeListId,activeItemId,toListId);
 
-  deactivate();
-  toast.success("Item Moved Successfull.");
+//   deactivate();
+//   toast.success("Item Moved Successfull.");
 
-};
+// };
 
 // const handleCreateButtonClick=():void=>{
 //   // console.warn('check')
@@ -61,15 +61,15 @@ const handleMoveButtonClick=(toListId:string):void=>{
         <div className={styles.title}>🎫BoardTitle </div>
         <div className={styles.actions}>
         
-         {         
+         {/* {         
           activeListId !== null && (
             <div className={styles.spacer}>
          { lists.filter((list)=>list.id !== activeListId).map((list)=>(
             <Button key={list.id} onClick={()=>handleMoveButtonClick(list.id)}>{list.title}</Button>
           ))}
-          {/* <Button onClick={handleRemoveButtonClick}>Remove</Button> */}
+         
            </div>
-          )}
+          )} */}
          
      
           <IconButton >

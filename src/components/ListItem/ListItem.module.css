@@ -19,8 +19,8 @@
         }
        
       }  
-      &.active{
+      /* &.active{
         border-color:var(--colore-primary)
       }   
-          
+           */
  }
