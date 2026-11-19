@@ -5,8 +5,8 @@ import MingcuteMore1Line from "@/icons/MingcuteMore1Line";
 import IconButton from "../IconButton/IconButton";
 import ListItem from "../ListItem/ListItem";
 import MingcuteAddLine from "@/icons/MingcuteAddLine";
-import { toast } from "react-toastify";
-import { BoardContext } from "@/context/board-context";
+// import { toast } from "react-toastify";
+// import { BoardContext } from "@/context/board-context";
 import CreateListItemModal from "../CreateListItemModal/CreateListItemModal";
 type Props = {
   list: ListType;
@@ -21,10 +21,10 @@ const List = function List({ list }: Props): ReactNode {
   // //   create();
   // //   toast.success("Item Created Successfull.");
   // // };
-  const ref = useRef<HTMLDialogElement>(null);
+  const modalRef = useRef<HTMLDialogElement>(null);
 
-  const handleOpenButtonClick = (): void => {
-    ref.current?.showModal();
+  const handleCreateButtonClick = (): void => {
+    modalRef.current?.showModal();
   };
   //const moreIcon=useMemo(()=> ,[])
   return (
@@ -33,7 +33,7 @@ const List = function List({ list }: Props): ReactNode {
         <div className={styles.title}>📚{list.title}</div>
         <div className={styles.action}>
           <IconButton>
-            <MingcuteAddLine onClick={handleOpenButtonClick} />
+            <MingcuteAddLine onClick={handleCreateButtonClick} />
           </IconButton>
 
           <IconButton>
@@ -48,7 +48,7 @@ const List = function List({ list }: Props): ReactNode {
           </li>
         ))}
       </ul>
-      <CreateListItemModal ref={ref} listId={list.id} />
+      <CreateListItemModal ref={modalRef} listId={list.id} />
     </div>
   );
 };

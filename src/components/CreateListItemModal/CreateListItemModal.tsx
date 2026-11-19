@@ -30,7 +30,7 @@ export default function CreateListItemModal({
   const [title, setTitle] = useState("");
   const [titleError, setTitleError] = useState<string | null>(null);
 
-  const { create } = use(BoardContext);
+  const { dispatchLists } = use(BoardContext);
 
   const shouldValidateOnChange=useRef<boolean>(false);
 
@@ -46,7 +46,8 @@ export default function CreateListItemModal({
     if (!validateTitle(title)) {
       return;
     }
-    create(listId, { id, title: title });
+    dispatchLists({type:'created',listId:listId,item:{ id, title: title }});
+    // create(listId, { id, title: title });
     toast.success("Item created successfully.");
 
     ref.current?.close();
