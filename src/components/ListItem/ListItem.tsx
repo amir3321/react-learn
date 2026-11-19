@@ -4,33 +4,21 @@ import type { ListItemType } from '@/types/list-item';
 import IconButton from '../IconButton/IconButton';
 import MingcuteDelete2Line from '@/icons/MingcuteDelete2Line';
 import { BoardContext } from '@/context/board-context';
-// import { ActiveItemContext } from '@/context/active-item-context';
-// import clsx from 'clsx';
 import { toast } from 'react-toastify';
 
 
 type Props={
-  listId:string;
+  listIndex:number;
+  itemIndex:number;
   item:ListItemType;
-  // onClick?:(listId:string,itemId:string)=>void;
-  // onRemove?:(listId:string,itemId:string)=>void;
-}
-const ListItem= function ListItem ({listId,item}:Props): ReactNode  {
- const {dispatchLists}= use(BoardContext);
-//  const {activeItemId,activate,deactivate}=use(ActiveItemContext);
   
- 
-// const handleListItemClick=():void=>{
-//   if(item.id===activeItemId)
-//     deactivate();
-//   else
-//   activate(listId,item.id);
- 
+}
+const ListItem= function ListItem ({listIndex,itemIndex,item}:Props): ReactNode  {
+ const {dispatchLists}= use(BoardContext);
 
-// };
   const handleRemoveButtonClick=(e:MouseEvent<HTMLButtonElement>):void=>{
     e.stopPropagation();
-  dispatchLists({type:'removed',listId,itemId:item.id})
+  dispatchLists({type:'item_removed',listIndex,itemIndex})
     // remove(listId,item.id);
     // deactivate();
     toast.success("Item Removed Successfull.");

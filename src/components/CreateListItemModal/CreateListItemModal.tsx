@@ -16,11 +16,11 @@ import { BoardContext } from "@/context/board-context";
 import { toast } from "react-toastify";
 
 type Props = Omit<ComponentProps<typeof Modal>, "children" | "heading"> & {
-  listId: string;
+  listIndex: number;
 };
 
 export default function CreateListItemModal({
-  listId,
+  listIndex,
   contentClassName,
   ref,
   ...otherProps
@@ -46,7 +46,7 @@ export default function CreateListItemModal({
     if (!validateTitle(title)) {
       return;
     }
-    dispatchLists({type:'created',listId:listId,item:{ id, title: title }});
+    dispatchLists({type:'item_created',listIndex,item:{ id, title: title }});
     // create(listId, { id, title: title });
     toast.success("Item created successfully.");
 

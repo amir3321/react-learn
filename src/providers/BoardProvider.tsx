@@ -2,8 +2,9 @@ import { BoardContext } from "@/context/board-context";
 import { listsData } from "@/data/lists-data";
 import { ListReducer } from "@/reducers/list-reducer";
 import type { ListType } from "@/types/list";
-import type { ListItemType } from "@/types/list-item";
-import  { useEffect, useReducer, useState, type PropsWithChildren, type ReactNode } from "react";
+// import type { ListItemType } from "@/types/list-item";
+import  { useEffect, type PropsWithChildren, type ReactNode } from "react";
+import { useImmerReducer } from "use-immer";
 
 function save(lists: ListType[]): void {
   localStorage.setItem("lists", JSON.stringify(lists));
@@ -19,7 +20,8 @@ function load(): ListType[] {
 type Props = PropsWithChildren;
 export default function BoardProvider({ children }: Props): ReactNode {
   // const [lists, setLists] =useState<ListType[]>(load);
-  const [lists,dispatchLists]= useReducer(ListReducer,load())
+  // const [lists,dispatchLists]= useReducer(ListReducer,load())
+    const [lists,dispatchLists]= useImmerReducer(ListReducer,load())
 
   useEffect(() => {
     save(lists);

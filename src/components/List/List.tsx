@@ -1,32 +1,25 @@
 import type { ListType } from "@/types/list";
 import styles from "./List.module.css";
-import { use, useRef, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import MingcuteMore1Line from "@/icons/MingcuteMore1Line";
 import IconButton from "../IconButton/IconButton";
 import ListItem from "../ListItem/ListItem";
 import MingcuteAddLine from "@/icons/MingcuteAddLine";
-// import { toast } from "react-toastify";
-// import { BoardContext } from "@/context/board-context";
+
 import CreateListItemModal from "../CreateListItemModal/CreateListItemModal";
 type Props = {
+  listIndex:number;
   list: ListType;
-  // onClick?:(listId:string,itemId:string)=>void;
-  // onRemove?:(listId:string,itemId:string)=>void;
-};
-const List = function List({ list }: Props): ReactNode {
-  // const { create } = use(BoardContext);
-  // // const handleCreateButtonClick = (): void => {
-  // //   console.warn("check");
 
-  // //   create();
-  // //   toast.success("Item Created Successfull.");
-  // // };
+};
+const List = function List({listIndex, list }: Props): ReactNode {
+ 
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const handleCreateButtonClick = (): void => {
     modalRef.current?.showModal();
   };
-  //const moreIcon=useMemo(()=> ,[])
+ 
   return (
     <div className={styles["list"]}>
       <div className={styles.header}>
@@ -42,13 +35,13 @@ const List = function List({ list }: Props): ReactNode {
         </div>
       </div>
       <ul className={styles.items}>
-        {list.items.map((item) => (
+        {list.items.map((item,itemIndex) => (
           <li key={item.id}>
-            <ListItem listId={list.id} item={item} />
+            <ListItem listIndex={listIndex} itemIndex={itemIndex} item={item} />
           </li>
         ))}
       </ul>
-      <CreateListItemModal ref={modalRef} listId={list.id} />
+      <CreateListItemModal ref={modalRef} listIndex={listIndex} />
     </div>
   );
 };
